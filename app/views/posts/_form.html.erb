@@ -1,0 +1,22 @@
+<div class="col-lg-8">
+  <% if @post.present? %>
+    <% @post.errors.each do |attr, msg| %>
+      <div class="alert alert-danger" role="alert">
+        <%= msg %>
+      </div>
+    <% end %>
+  <% end %>
+  <%= form_for(:post, url: path, method: 'post') do %>
+    <div class="form-group">
+      <%= label(:post, :title, 'Title') %>
+      <%= text_field(:post, :title, class: 'form-control') %>
+    </div>
+    <%= label(:post, :topic, 'Chose Thema') %>
+    <%= select(:post, :topic, options_from_collection_for_select(@topics, 'id', 'title', @post.present? ? @post.id : nil), {}, {class: 'form-control'}) %>
+    <div class="form-group">
+      <%= label(:post, :body, 'Text') %>
+      <%= text_area(:post, :body, class: 'form-control', rows: '10') %>
+    </div>
+    <%= submit_tag(action == 'edit' ? 'Save' : 'Create', class: 'btn btn-primary') %>
+  <% end %>
+</div>

@@ -1,0 +1,13 @@
+ru:
+  activerecord:
+    errors:
+      models:
+        post:
+          attributes:
+            topic:
+              required: 'Нет темы'
+            title:
+              blank: 'Пустой заголовок'
+              too_long: 'Длинный заголовок'
+            body:
+              blank: 'Пустой текст'

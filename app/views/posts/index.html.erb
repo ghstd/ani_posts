@@ -1,0 +1,43 @@
+ <!-- Page header with logo and tagline-->
+<header class="py-5 bg-light border-bottom mb-4">
+  <div class="container">
+    <div class="text-center my-5">
+      <h1 class="fw-bolder">
+        <% if @topic == nil %>
+          All posts
+        <% else %>
+          <%= @topic.title %>
+        <% end %>
+      </h1>
+    </div>
+  </div>
+</header>
+<!-- Page content-->
+<div class="container">
+  <div class="row">
+    <!-- Blog entries-->
+    <div class="col-lg-8">
+      <!-- Blog post-->
+      <% @posts.each do |post| %>
+        <div class="card mb-4">
+          <div class="card-body">
+            <div class="small text-muted"><%= post.created_at %></div>
+            <h2 class="card-title"><%= post.title %></h2>
+            <p class="card-text"><%= post.body.length <= 2000 ? post.body : post.body[0..2000] %></p>
+            <a class="btn btn-primary" href="/posts/<%= post.id %>">Read more →</a>
+          </div>
+        </div>
+      <% end %>
+      <!-- Pagination-->
+      <nav aria-label="Pagination">
+        <hr class="my-0" />
+        <ul class="pagination justify-content-center my-4">
+          <li class="page-item <% unless @has_newer %>disabled<% end %>">
+            <a class="page-link" href="/posts/<% if @topic.present? %><%=@topic.alias%><% end %>?newer<%= @page_token%>">Newer</a>
+          </li>
+          <li class="page-item <% unless @has_older %>disabled<% end %>">
+            <a class="page-link" href="/posts/<% if @topic.present? %><%=@topic.alias%><% end %>?older<%= @page_token%>">Older</a>
+          </li>
+        </ul>
+      </nav>
+    </div>
